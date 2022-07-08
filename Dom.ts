@@ -6,7 +6,7 @@
  *
  * Copyright @ 2022 Miroslav Popov
  *
- * v1.0 2022.03.27
+ * v1.1 2022.07.08
  */
 
 class Dom
@@ -48,7 +48,7 @@ class Dom
 	 */
 	public static qsAll<T extends HTMLElement>(selector: string, parent: HTMLElement | Document = document): T[]
 	{
-		return Array.prototype.slice.call(parent.querySelectorAll(selector)) as T[]
+		return [...parent.querySelectorAll(selector)] as T[]
 	}
 
 	/**
@@ -96,9 +96,7 @@ class Dom
 	 */
 	public static text(element: HTMLElement, text?: any): string
 	{
-		return typeof text === 'undefined'
-			? element.textContent || ''
-			: element.textContent = String(text)
+		return typeof text === 'undefined' ? element.textContent || '' : element.textContent = String(text)
 	}
 
 	/**
@@ -106,9 +104,7 @@ class Dom
 	 */
 	public static value(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, value?: any): string
 	{
-		return typeof value === 'undefined'
-			? element.value
-			: element.value = String(value)
+		return typeof value === 'undefined' ? element.value : element.value = String(value)
 	}
 
 	/**
@@ -116,9 +112,7 @@ class Dom
 	 */
 	public static innerHtml(element: HTMLElement, html?: string): string
 	{
-		return typeof html === 'string'
-			? element.innerHTML = html
-			: element.innerHTML
+		return typeof html === 'string' ? element.innerHTML = html : element.innerHTML
 	}
 
 	/**
@@ -134,9 +128,7 @@ class Dom
 	 */
 	public static checked(element: HTMLInputElement, isChecked?: boolean): boolean
 	{
-		return typeof isChecked === 'boolean'
-			? element.checked = isChecked
-			: element.checked
+		return typeof isChecked === 'boolean' ? element.checked = isChecked : element.checked
 	}
 
 	/**
@@ -144,9 +136,18 @@ class Dom
 	 */
 	public static disabled(element: HTMLInputElement | HTMLButtonElement | HTMLSelectElement, isDisabled?: boolean): boolean
 	{
-		return typeof isDisabled === 'boolean'
-			? element.disabled = isDisabled
-			: element.disabled
+		return typeof isDisabled === 'boolean' ? element.disabled = isDisabled : element.disabled
+	}
+
+	/**
+	 * Adds or removes one or more classes to an element according to a condition
+	 */
+	public static ensureClass(element: HTMLElement, cond: boolean, ...className: string[]): void
+	{
+		if (cond)
+			element.classList.add(...className)
+		else
+			element.classList.remove(...className)
 	}
 
 	/**
@@ -166,30 +167,42 @@ class Dom
 	}
 
 	/**
-	 * Adds or removes a class from an HTML Element's class list as per a flag or
-	 * gets if the element contains a class.
-	 */
-	public static hasClass(element: HTMLElement, className: string, flag?: boolean): boolean
-	{
-		if (typeof flag === 'boolean') {
-			if (flag) {
-				element.classList.add(className)
-				return true
-			}
-
-			element.classList.remove(className)
-			return false
-		}
-
-		return element.classList.contains(className)
-	}
-
-	/**
 	 * Swaps a class of an HTML Element
 	 */
 	public static swapClass(element: HTMLElement, classToRemove: string, classToAdd: string): void
 	{
 		element.classList.remove(classToRemove)
 		element.classList.add(classToAdd)
+	}
+
+	/**
+	 * Toggles a class of an HTML Element
+	 */
+	public static toggleClass(element: HTMLElement, className: string): void
+	{
+		if (element.classList.contains(className))
+			element.classList.remove(className)
+		else
+			element.classList.add(className)
+	}
+
+	/**
+	 * Creates an element with the given tag
+	 *
+	 * @param {string} tagName
+	 */
+	public static createElement<T extends HTMLElement>(tagName: string): T
+	{
+		return document.createElement(tagName) as T
+	}
+
+	/**
+	 * Sets text to the browser's tab
+	 *
+	 * @param {string} title
+	 */
+	public static title(title: string): void
+	{
+		document.title = title
 	}
 }
