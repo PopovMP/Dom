@@ -24,7 +24,7 @@ class Dom
 	 */
 	public static gebcn<T extends HTMLElement>(className: string): T[]
 	{
-		return Array.prototype.slice.call(document.getElementsByClassName(className)) as T[]
+		return [...document.getElementsByClassName(className)] as T[]
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Dom
 	 */
 	public static gebtn<T extends HTMLElement>(tagName: string): T[]
 	{
-		return Array.prototype.slice.call(document.getElementsByTagName(tagName)) as T[]
+		return [...document.getElementsByTagName(tagName)] as T[]
 	}
 
 	/**
