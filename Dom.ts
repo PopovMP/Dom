@@ -103,18 +103,13 @@ class Dom
 	}
 
 	/**
-	 * Shows or hides an HTML element
+	 * Shows or hides an HTML element or gets the visible state
 	 */
-	public static visible(element: HTMLElement, isVisible: boolean): void
+	public static visible(element: HTMLElement, isVisible?: boolean): boolean
 	{
-		element.style.display = isVisible ? 'block' : 'none'
-	}
+		if (typeof isVisible === 'boolean')
+			element.style.display = isVisible ? 'block' : 'none'
 
-	/**
-	 * Gets if an element visible
-	 */
-	public static isVisible(element: HTMLElement): boolean
-	{
 		return element.style.display !== 'none'
 	}
 
