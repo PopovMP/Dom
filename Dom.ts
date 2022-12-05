@@ -24,7 +24,16 @@ class Dom
 	 */
 	public static gebcn<T extends HTMLElement>(className: string): T[]
 	{
-		return [...document.getElementsByClassName(className)] as T[]
+		const elementsByClass = document.getElementsByClassName(className)
+		const elements: T[] = Array(elementsByClass.length)
+
+		let index = 0
+		while (index < elementsByClass.length) {
+			elements[index] = elementsByClass[index] as T
+			index += 1
+		}
+
+		return elements
 	}
 
 	/**
@@ -32,7 +41,16 @@ class Dom
 	 */
 	public static gebtn<T extends HTMLElement>(tagName: string): T[]
 	{
-		return [...document.getElementsByTagName(tagName)] as T[]
+		const elementsByTag = document.getElementsByTagName(tagName)
+		const elements: T[] = Array(elementsByTag.length)
+
+		let index = 0
+		while (index < elementsByTag.length) {
+			elements[index] = elementsByTag[index] as T
+			index += 1
+		}
+
+		return elements
 	}
 
 	/**
@@ -48,7 +66,16 @@ class Dom
 	 */
 	public static qsAll<T extends HTMLElement>(selector: string, parent: HTMLElement | Document = document): T[]
 	{
-		return [...parent.querySelectorAll(selector)] as T[]
+		const nodes = parent.querySelectorAll(selector)
+		const elements: T[] = Array(nodes.length)
+
+		let index = 0
+		while (index < nodes.length) {
+			elements[index] = nodes[index] as T
+			index += 1
+		}
+
+		return elements
 	}
 
 	/**
