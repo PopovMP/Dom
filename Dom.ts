@@ -6,7 +6,7 @@
  *
  * Copyright @ 2022 Miroslav Popov
  *
- * v1.1 2022.07.08
+ * v1.2 2022.12.04
  */
 
 class Dom
