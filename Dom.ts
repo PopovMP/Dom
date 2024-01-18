@@ -4,9 +4,9 @@
  * A simple Dom manipulation helper
  * https://github.com/PopovMP/dom
  *
- * Copyright @ 2023 Miroslav Popov
+ * Copyright @ 2024 Miroslav Popov
  *
- * v1.3 2023.06.11
+ * v1.4 2024.01.18
  */
 
 class Dom {
@@ -24,11 +24,8 @@ class Dom {
         const elementsByClass: HTMLCollectionOf<Element> = document.getElementsByClassName(className);
         const elements: T[] = new Array<T>(elementsByClass.length);
 
-        let index: number = 0;
-        while (index < elementsByClass.length) {
-            elements[index] = elementsByClass[index] as T;
-            index += 1;
-        }
+        for (let i: number = 0; i < elementsByClass.length; i += 1)
+            elements[i] = elementsByClass[i] as T;
 
         return elements;
     }
@@ -40,11 +37,8 @@ class Dom {
         const elementsByTag: HTMLCollectionOf<Element> = document.getElementsByTagName(tagName);
         const elements: T[] = new Array<T>(elementsByTag.length);
 
-        let index: number = 0;
-        while (index < elementsByTag.length) {
-            elements[index] = elementsByTag[index] as T;
-            index += 1;
-        }
+        for (let i: number = 0; i < elementsByTag.length; i += 1)
+            elements[i] = elementsByTag[i] as T;
 
         return elements;
     }
@@ -63,11 +57,8 @@ class Dom {
         const nodes   : NodeListOf<T> = parent.querySelectorAll(selector);
         const elements: T[] = new Array<T>(nodes.length);
 
-        let index: number = 0;
-        while (index < nodes.length) {
-            elements[index] = nodes[index] as T;
-            index += 1;
-        }
+        for (let i: number = 0; i < nodes.length; i += 1)
+            elements[i] = nodes[i] as T;
 
         return elements;
     }
@@ -97,9 +88,8 @@ class Dom {
      * Shows or hides an HTML element or gets the visible state
      */
     public static visible(element: HTMLElement, isVisible?: boolean): boolean {
-        if (typeof isVisible === "boolean") {
+        if (typeof isVisible === "boolean")
             element.style.display = isVisible ? "block" : "none";
-        }
 
         return element.style.display !== "none";
     }
@@ -150,11 +140,10 @@ class Dom {
      * Adds or removes one or more classes to an element according to a condition
      */
     public static ensureClass(element: HTMLElement, cond: boolean, ...className: string[]): void {
-        if (cond) {
+        if (cond)
             element.classList.add(...className);
-        } else {
+        else
             element.classList.remove(...className);
-        }
     }
 
     /**
@@ -180,14 +169,23 @@ class Dom {
     }
 
     /**
+     * Gets or sets an Attribute
+     */
+    public static attribute(element: HTMLElement, name: string, value?: string): string {
+        if (typeof value === "string")
+            element.setAttribute(name, value);
+
+        return element.getAttribute(name) || "";
+    }
+
+    /**
      * Toggles a class of an HTML Element
      */
     public static toggleClass(element: HTMLElement, className: string): void {
-        if (element.classList.contains(className)) {
+        if (element.classList.contains(className))
             element.classList.remove(className);
-        } else {
+        else
             element.classList.add(className);
-        }
     }
 
     /**
